@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lights On Button</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  body {
+    background: white;
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;   /* center the content horizontally */
+    align-items: flex-start;   /* align the group toward top */
+    padding-top: 50px;         /* optional top padding */
+    min-height: 100vh;         /* take full screen height */
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .popup-buttons {
+    width: 500%;
+    max-width: 500px;          /* this fixes the width of the column */
+    display: flex;
+    flex-direction: column;    /* stack vertically */
+   }
+
+  .popup-buttons button {
+    background: #e9557a;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    flex: 1;    /* each button grows equally */
+  }
+
+  .popup-buttons button:hover {
+    background: #d43b61;
+  }
+
+  img.fullscreen-image {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    max-width: 500px;
+    height: auto;
+    background: none;
+    border: none;
+    box-shadow: none;
+    z-index: 2;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<main class="content" id="contentBox">
+  <div class="popup-buttons show">
+    <button id="MusicButton">Play Music</button>
+  </div>
+</main>
+
+<script>
+  const musicButton = document.getElementById('MusicButton');
+
+  musicButton.onclick = () => {
+    // Play background music
+    const audio = new Audio('videoplayback.m4a'); // put your music file path
+    audio.loop = true;
+    audio.play();
+
+    musicButton.remove();
+
+    const decorateButton = document.createElement('button');
+    decorateButton.textContent = 'Decorate';
+    decorateButton.onclick = () => {
+      const existingImage = document.querySelector('img.fullscreen-image');
+      if (existingImage) existingImage.remove();
+
+      const img = document.createElement('img');
+      img.src = '—Pngtree—happy birthday decoration_7693051.png'; // your transparent image file
+      img.className = 'fullscreen-image';
+      document.body.appendChild(img);
+    };
+    document.querySelector('.popup-buttons').appendChild(decorateButton);
+  };
+</script>
+
+</body>
+</html>

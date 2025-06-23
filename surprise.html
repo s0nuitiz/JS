@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: rgb(238, 211, 215);
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      background: rgb(255, 227, 231);
+      padding: 3.5rem;
+    }
+    .content {
+      background: white;
+      padding: 0.1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      min-height: 50vh;
+      transition: background 0.3s;
+
+      /* Fill full viewport height */
+      height: 1vh;
+
+      /* NEW */
+      display: flex;
+      flex-direction: column;      /* so the text and the buttons are stacked vertically */
+      align-items: center;         /* horizontally center */
+      justify-content: center;     /* vertically center */
+      text-align: center;          /* center text itself */
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <header> </header>
+  <main class="content" id="contentBox"></main>
+
+  <script>
+    const messageBox = document.getElementById('contentBox');
+
+    // Show first message
+    setTimeout(() => {
+      messageBox.textContent = "Have A Look At It, Madam Jiii";
+    }, 1000);
+
+    // Also add the plain link
+    const linkContainer = document.createElement('div');
+    linkContainer.className = 'link-container';
+    linkContainer.innerHTML = `
+        <a href="light.html"> </a>
+    `;
+    messageBox.appendChild(linkContainer);
+
+    setTimeout(() => {
+        window.location.href = "light.html";
+    }, 3000);
+
+  </script>
+</body>
+</html>

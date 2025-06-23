@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: rgb(238, 211, 215);
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      background: rgb(255, 227, 231);
+      padding: 3.5rem;
+    }
+    .content {
+      background: white;
+      padding: 0.1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      min-height: 50vh;
+      transition: background 0.3s;
+
+      /* Fill full viewport height */
+      height: 1vh;
+
+      /* NEW */
+      display: flex;
+      flex-direction: column;      /* so the text and the buttons are stacked vertically */
+      align-items: center;         /* horizontally center */
+      justify-content: center;     /* vertically center */
+      text-align: center;          /* center text itself */
+      position: relative;
+    }
+    /* Buttons style */
+    .popup-buttons {
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .popup-buttons.show {
+      opacity: 1;
+    }
+    .popup-buttons button {
+      background: #4285f4;
+      color: white;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .popup-buttons button:hover {
+      background: #3367d6;
+    }
+    /* Link style */
+    .link-container {
+      margin-top: 2rem;
+    }
+    .link-container a {
+      color: #4285f4;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    .link-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header> </header>
+  <main class="content" id="contentBox"></main>
+
+  <script>
+    const messageBox = document.getElementById('contentBox');
+
+    // Show first message
+    setTimeout(() => {
+      messageBox.textContent = "It's Your Special Day Yeeeey !!!";
+    }, 1000);
+
+    // Show second message and the yes/no popup
+    setTimeout(() => {
+      messageBox.textContent = "Wanna see what I made for you ?";
+      setTimeout(() => {
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'popup-buttons';
+        btnContainer.innerHTML = `
+          <button id="yesButton">Yes</button>
+          <button id="noButton">No</button>
+        `;
+        messageBox.appendChild(btnContainer);
+        btnContainer.classList.add('show');
+
+        // Also add the plain link
+        const linkContainer = document.createElement('div');
+        linkContainer.className = 'link-container';
+        linkContainer.innerHTML = `
+          <a href="surprise.html"> </a>
+        `;
+        messageBox.appendChild(linkContainer);
+
+        // Button event handlers
+        document.getElementById('yesButton').onclick = () => {
+          window.location.href = "surprise.html";
+        };
+        document.getElementById('noButton').onclick = () => {
+          alert('Okay! Maybe next time. 😢');
+        };
+      }, 2000); // wait 2s before showing popups and link
+    }, 3000); // wait until after the second message
+  </script>
+</body>
+</html>
