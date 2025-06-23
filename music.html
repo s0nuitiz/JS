@@ -45,6 +45,8 @@
     width: 110vw;
     max-width: 500px;
     height: auto;
+    z-index: 1;           /* keep this below the buttons */
+    pointer-events: none; /* allow clicking through the image */
     transition: top 0.8s ease, opacity 0.6s ease; /* smooth animation */
   }
 
@@ -99,7 +101,38 @@
       document.querySelector('.popup-buttons').appendChild(flyButton);
 
       flyButton.onclick = () => {
-        alert('Your balloon logic here 🎈');
+        const balloonImages = [
+            'balloon-pink.png',    // Red balloon
+            'balloon-blue.png',   // Blue balloon
+            'balloon-green.png'   // Green balloon
+        ];
+  
+        // Total balloons
+        for (let i = 0; i < 6; i++) {
+            const balloon = document.createElement('img');
+            // Pick one of the 3 images in sequence (i.e. i % 3)
+            balloon.src = balloonImages[i % balloonImages.length];
+            balloon.className = 'balloon';
+            balloon.style.left = `${Math.random() * 90}%`;    // random horizontal position
+            balloon.style.bottom = '-100px';
+            balloon.style.width = '60px';
+            balloon.style.position = 'fixed';
+            balloon.style.zIndex = '1';
+            balloon.style.pointerEvents = 'none';
+            document.body.appendChild(balloon);
+
+            // Animate the balloon going up
+            balloon.animate(
+                [{ transform: 'translateY(0)' }, { transform: 'translateY(-110vh)' }],
+                {
+                    duration: 4000 + Math.random() * 2000,  // each will take 4-6s
+                    easing: 'linear',
+                    fill: 'forwards'
+                }
+            );
+
+            setTimeout(() => balloon.remove(), 6000); // remove after animation finishes
+        }
       };
 
     };
