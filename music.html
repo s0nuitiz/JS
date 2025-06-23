@@ -42,17 +42,17 @@
     top: 38%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 110vw;
+    width: 50vw;
     max-width: 500px;
     height: auto;
-    transition: top 5s ease, opacity 0.6s ease; /* smooth animation */
+    transition: top 0.8s ease, opacity 0.6s ease; /* smooth animation */
   }
 
   img.fullscreen-image.slide-in {
-    top: 50%;                /* move down to center */
+    top: 40%;                /* move down to center */
     opacity: 1;
   }
-  
+
 </style>
 </head>
 <body>
@@ -84,6 +84,24 @@
       img.src = '—Pngtree—happy birthday decoration_7693051.png'; // your transparent image file
       img.className = 'fullscreen-image';
       document.body.appendChild(img);
+
+      // Trigger the slide-in effect
+      requestAnimationFrame(() => {
+      img.classList.add('slide-in');
+      });
+
+      // Remove DecorateButton
+      decorateButton.remove();
+
+      // Create Fly the Balloons button
+      const flyButton = document.createElement('button');
+      flyButton.textContent = 'Fly the Balloons';
+      document.querySelector('.popup-buttons').appendChild(flyButton);
+
+      flyButton.onclick = () => {
+        alert('Your balloon logic here 🎈');
+      };
+
     };
     document.querySelector('.popup-buttons').appendChild(decorateButton);
   };
