@@ -55,6 +55,16 @@
     opacity: 1;
   }
 
+  img.cake-image {
+    position: fixed;
+    top: 60%;               /* lower than the decoration's top */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;           /* smaller width */
+    z-index: 2;             /* on top of decoration */
+    pointer-events: none;
+  }
+
 </style>
 </head>
 <body>
@@ -133,6 +143,33 @@
 
             setTimeout(() => balloon.remove(), 6000); // remove after animation finishes
         }
+
+
+        // Remove DecorateButton
+        flyButton.remove();
+
+        // Create Fly the Balloons button
+        const cakeButton = document.createElement('button');
+        cakeButton.textContent = "Let's Cut the Cake Madam Ji";
+        document.querySelector('.popup-buttons').appendChild(cakeButton);
+
+        cakeButton.onclick = () => {
+
+            const existingImage = document.querySelector('img.fullscreen-image');
+            
+
+            const img = document.createElement('img');
+            img.src = 'cake.png'; // your transparent image file
+            img.className = 'cake-image';
+            document.body.appendChild(img);
+
+            // Trigger the slide-in effect
+            requestAnimationFrame(() => {
+            img.classList.add('slide-in');
+            });
+
+        };
+
       };
 
     };
