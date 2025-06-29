@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background: rgb(255, 227, 231);
+      background: rgb(238, 211, 215);
       font-family: Arial, sans-serif;
       padding: 0;
       margin: 0;
-      position: relative;  /* Ensure body is positioned for emoji animation */
     }
     header {
       background: rgb(255, 227, 231);
@@ -20,13 +19,13 @@
     .content {
       background: white;
       padding: 0.1rem;
-      font-size: 1.5rem;  /* Kept font size as before */
-      height: 20vh;  /* Fixed exact height */
+      font-size: 1.5rem; /* Kept font size as before */
+      height: 20vh; /* Fixed exact height */
       display: flex;
-      flex-direction: column;  /* so the text and the buttons are stacked vertically */
-      align-items: center;  /* horizontally center */
-      justify-content: center;  /* vertically center */
-      text-align: center;  /* center text itself */
+      flex-direction: column;      /* so the text and the buttons are stacked vertically */
+      align-items: center;         /* horizontally center */
+      justify-content: center;     /* vertically center */
+      text-align: center;          /* center text itself */
       position: relative;
     }
     .message {
@@ -77,7 +76,7 @@
         opacity: 1;
       }
       100% {
-        transform: translateY(-30vh);  /* Adjusted to reach the top of the header */
+        transform: translateY(-10vh);
         opacity: 0;
       }
     }
@@ -88,7 +87,7 @@
       animation: slideUp 5s linear infinite;
     }
   </style>
- </head>
+</head>
 <body>
   <header id="header">
   </header>
@@ -133,8 +132,8 @@
         document.getElementById('noButton').onclick = () => {
           alert('Okay! Maybe next time. 😢');
         };
-      }, 2000);  // wait 2s before showing popups and link
-    }, 3000);  // wait until after the second message
+      }, 2000); // wait 2s before showing popups and link
+    }, 3000); // wait until after the second message
 
     // Function to generate and animate emojis
     function createEmojis(parent) {
@@ -146,15 +145,15 @@
         emoji.style.left = `${Math.random() * 100}%`;
         emoji.style.animationDelay = `${Math.random() * 2}s`;
         parent.appendChild(emoji);
-        setTimeout(() => emoji.remove(), 5000);  // remove after animation finishes
+        setTimeout(() => emoji.remove(), 5000); // remove after animation finishes
       }
     }
 
-    // Generate emojis within body continuously
-    setInterval(() => createEmojis(document.body), 2000);  // generate emojis in body every 2 seconds
+    // Generate emojis within header section continuously
+    setInterval(() => createEmojis(headerSection), 2000); // generate emojis in header every 2 seconds
 
-    // Generate emojis within header continuously
-    setInterval(() => createEmojis(headerSection), 2000);  // generate emojis in header every 2 seconds
+    // Generate emojis within body continuously
+    setInterval(() => createEmojis(document.body), 2000); // generate emojis in body every 2 seconds
   </script>
 </body>
 </html>
