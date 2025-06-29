@@ -18,15 +18,8 @@
     .content {
       background: white;
       padding: 0.1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      min-height: 50vh;
-      transition: background 0.3s;
-
-      /* Fill full viewport height */
-      height: 1vh;
-
-      /* NEW */
+      font-size: 1.5rem; /* Kept font size as before */
+      height: 20vh; /* Fixed exact height */
       display: flex;
       flex-direction: column;      /* so the text and the buttons are stacked vertically */
       align-items: center;         /* horizontally center */
@@ -45,7 +38,7 @@
 
     // Show first message
     setTimeout(() => {
-      messageBox.textContent = "Have A Look At It, Madam Jiii";
+      messageBox.textContent = "Have A Look At It";
     }, 1000);
 
     // Also add the plain link
