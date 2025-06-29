@@ -81,14 +81,6 @@
       z-index: 1; /* Ensure emojis are below content */
       pointer-events: none; /* Allow clicking through the container */
     }
-    .emoji {
-      position: absolute;
-      bottom: 0; /* Start at the bottom of the container */
-      width: 40px; /* Emoji size */
-      height: 40px; /* Emoji size */
-      z-index: 1;
-      pointer-events: none;
-    }
     @keyframes rotate-clockwise {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -96,6 +88,18 @@
     @keyframes rotate-counterclockwise {
       from { transform: rotate(0deg); }
       to { transform: rotate(-360deg); }
+    }
+    @keyframes slide-up {
+      from { transform: translateY(0); }
+      to { transform: translateY(-110vh); }
+    }
+    .emoji {
+      position: absolute;
+      bottom: 0; /* Start at the bottom of the container */
+      width: 40px; /* Emoji size */
+      height: 40px; /* Emoji size */
+      z-index: 1;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -155,27 +159,17 @@
       const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
       const spinDuration = 4000 + Math.random() * 2000;
 
-      emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite`;
+      emoji.style.animation = `slide-up ${spinDuration}ms linear, ${spinDirection} 3s linear infinite`;
 
       emojiContainer.appendChild(emoji);
       
-      // Animate the emoji sliding up
-      emoji.animate(
-        [{ transform: 'translateY(0)' }, { transform: 'translateY(-110vh)' }],
-        {
-          duration: 4000 + Math.random() * 2000, // Each will take 4-6s
-          easing: 'linear',
-          fill: 'forwards'
-        }
-      );
-
       setTimeout(() => {
         emoji.remove();
         const index = emojis.indexOf(emoji);
         if (index > -1) {
           emojis.splice(index, 1);
         }
-      }, 6000); // Remove after animation finishes
+      }, spinDuration); // Remove after animation finishes
     };
 
     const slideEmojis = () => {
