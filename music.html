@@ -77,9 +77,11 @@
 </main>
 <script>
   const musicButton = document.getElementById('MusicButton');
+  let audio;
+
   musicButton.onclick = () => {
     // Play background music
-    const audio = new Audio('videoplayback.m4a'); // put your music file path
+    audio = new Audio('videoplayback.m4a'); // put your music file path
     audio.loop = true;
     audio.play();
     musicButton.remove();
@@ -149,9 +151,14 @@
           // Replace cakeButton with moreButton
           cakeButton.remove();
           const moreButton = document.createElement('button');
-          moreButton.textContent = "Wait there's More !!!";
+          moreButton.textContent = 'More';
           document.querySelector('.popup-buttons').appendChild(moreButton);
           moreButton.onclick = () => {
+            // Stop the music
+            if (audio) {
+              audio.pause();
+              audio.currentTime = 0;
+            }
             document.body.innerHTML = '';  // Clear all content
             document.body.style.backgroundColor = 'black';  // Change background
             const video = document.createElement('video');
