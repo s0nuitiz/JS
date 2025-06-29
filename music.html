@@ -16,11 +16,9 @@
     padding-top: 50px;         /* optional top padding */
     min-height: 100vh;         /* take full screen height */
   }
-
   .content {
     text-align: center;
   }
-
   .popup-buttons button {
     background: #e9557a;
     color: white;
@@ -32,11 +30,9 @@
     cursor: pointer;
     font-size: 1.2rem;
   }
-
   .popup-buttons button:hover {
     background: #d43b61;
   }
-
   img.fullscreen-image {
     position: fixed;
     top: 40%;
@@ -49,12 +45,10 @@
     pointer-events: none; /* allow clicking through the image */
     transition: top 0.8s ease, opacity 0.6s ease; /* smooth animation */
   }
-
   img.fullscreen-image.slide-in {
     top: 40%;                /* move down to center */
     opacity: 1;
   }
-
   img.cake-image {
     position: fixed;
     top: 75%;               /* lower than the decoration's top */
@@ -64,118 +58,114 @@
     z-index: 2;             /* on top of decoration */
     pointer-events: none;
   }
-
+  video.fullscreen-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    z-index: 3;             /* on top of everything */
+  }
 </style>
 </head>
 <body>
-
 <main class="content" id="contentBox">
   <div class="popup-buttons show">
     <button id="MusicButton">Play Music</button>
   </div>
 </main>
-
 <script>
   const musicButton = document.getElementById('MusicButton');
-
   musicButton.onclick = () => {
     // Play background music
     const audio = new Audio('videoplayback.m4a'); // put your music file path
     audio.loop = true;
     audio.play();
-
     musicButton.remove();
-
     const decorateButton = document.createElement('button');
     decorateButton.textContent = 'Decorate';
     decorateButton.onclick = () => {
       const existingImage = document.querySelector('img.fullscreen-image');
       if (existingImage) existingImage.remove();
-
       const img = document.createElement('img');
       img.src = '—Pngtree—happy birthday decoration_7693051.png'; // your transparent image file
       img.className = 'fullscreen-image';
       document.body.appendChild(img);
-
       // Trigger the slide-in effect
       requestAnimationFrame(() => {
-      img.classList.add('slide-in');
+        img.classList.add('slide-in');
       });
-
       // Remove DecorateButton
       decorateButton.remove();
-
       // Create Fly the Balloons button
       const flyButton = document.createElement('button');
       flyButton.textContent = 'Fly the Balloons';
       document.querySelector('.popup-buttons').appendChild(flyButton);
-
       flyButton.onclick = () => {
         const balloonImages = [
-            'balloon-pink.png',    // Red balloon
-            'balloon-blue.png',   // Blue balloon
-            'balloon-green.png'   // Green balloon
+          'balloon-pink.png',   // Red balloon
+          'balloon-blue.png',   // Blue balloon
+          'balloon-green.png'   // Green balloon
         ];
-  
         // Total balloons
         for (let i = 0; i < 6; i++) {
-            const balloon = document.createElement('img');
-            // Pick one of the 3 images in sequence (i.e. i % 3)
-            balloon.src = balloonImages[i % balloonImages.length];
-            balloon.className = 'balloon';
-            balloon.style.left = `${Math.random() * 90}%`;    // random horizontal position
-            balloon.style.bottom = '-100px';
-            balloon.style.width = '60px';
-            balloon.style.position = 'fixed';
-            balloon.style.zIndex = '1';
-            balloon.style.pointerEvents = 'none';
-            document.body.appendChild(balloon);
-
-            // Animate the balloon going up
-            balloon.animate(
-                [{ transform: 'translateY(0)' }, { transform: 'translateY(-110vh)' }],
-                {
-                    duration: 4000 + Math.random() * 2000,  // each will take 4-6s
-                    easing: 'linear',
-                    fill: 'forwards'
-                }
-            );
-
-            setTimeout(() => balloon.remove(), 6000); // remove after animation finishes
+          const balloon = document.createElement('img');
+          // Pick one of the 3 images in sequence (i.e. i % 3)
+          balloon.src = balloonImages[i % balloonImages.length];
+          balloon.style.left = `${Math.random() * 90}%`;    // random horizontal position
+          balloon.style.bottom = '-100px';
+          balloon.style.width = '60px';
+          balloon.style.position = 'fixed';
+          balloon.style.zIndex = '1';
+          balloon.style.pointerEvents = 'none';
+          document.body.appendChild(balloon);
+          // Animate the balloon going up
+          balloon.animate(
+            [{ transform: 'translateY(0)' }, { transform: 'translateY(-110vh)' }],
+            {
+              duration: 4000 + Math.random() * 2000,  // each will take 4-6s
+              easing: 'linear',
+              fill: 'forwards'
+            }
+          );
+          setTimeout(() => balloon.remove(), 6000); // remove after animation finishes
         }
-
-
-        // Remove DecorateButton
+        // Remove FlyButton
         flyButton.remove();
-
-        // Create Fly the Balloons button
+        // Create CakeButton
         const cakeButton = document.createElement('button');
         cakeButton.textContent = "Let's Cut the Cake Madam Ji";
         document.querySelector('.popup-buttons').appendChild(cakeButton);
-
         cakeButton.onclick = () => {
-
-            const existingImage = document.querySelector('img.fullscreen-image');
-            
-
-            const img = document.createElement('img');
-            img.src = 'cake.png'; // your transparent image file
-            img.className = 'cake-image';
-            document.body.appendChild(img);
-
-            // Trigger the slide-in effect
-            requestAnimationFrame(() => {
+          const img = document.createElement('img');
+          img.src = 'cake.png'; // your cake image file
+          img.className = 'cake-image';
+          document.body.appendChild(img);
+          // Trigger the slide-up effect
+          requestAnimationFrame(() => {
             img.classList.add('slide-in');
-            });
-
+          });
+          // Replace cakeButton with moreButton
+          cakeButton.remove();
+          const moreButton = document.createElement('button');
+          moreButton.textContent = 'More';
+          document.querySelector('.popup-buttons').appendChild(moreButton);
+          moreButton.onclick = () => {
+            document.body.innerHTML = '';  // Clear all content
+            document.body.style.backgroundColor = 'black';  // Change background
+            const video = document.createElement('video');
+            video.src = 'myvideo.mp4'; // replace with your video file path
+            video.className = 'fullscreen-video';
+            video.controls = true;
+            video.autoplay = true;
+            document.body.appendChild(video);
+          };
         };
-
       };
-
     };
     document.querySelector('.popup-buttons').appendChild(decorateButton);
   };
 </script>
-
 </body>
 </html>
