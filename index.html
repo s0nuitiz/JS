@@ -18,9 +18,8 @@
     .content {
       background: white;
       padding: 0.1rem;
-      font-size: 1rem; /* Reduced font size */
-      height: auto; /* Removed fixed min-height */
-      /* Fill full viewport height */
+      font-size: 1.5rem; /* Kept font size as before */
+      height: 30vh; /* Fixed exact height */
       display: flex;
       flex-direction: column;      /* so the text and the buttons are stacked vertically */
       align-items: center;         /* horizontally center */
@@ -28,7 +27,9 @@
       text-align: center;          /* center text itself */
       position: relative;
     }
-    /* Buttons style */
+    .message {
+      margin-bottom: 1rem;
+    }
     .popup-buttons {
       margin-top: 1rem;
       opacity: 0;
@@ -52,11 +53,16 @@
     }
     /* Link style */
     .link-container {
-      margin-top: 2rem;
+      margin-top: 2rem; 
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .link-container.show {
+      opacity: 1;
     }
     .link-container a {
       color: #4285f4;
-      font-size: 1rem; /* Reduced font size */
+      font-size: 1.2rem;
       text-decoration: none;
     }
     .link-container a:hover {
@@ -66,32 +72,39 @@
 </head>
 <body>
   <header> </header>
-  <main class="content" id="contentBox"></main>
+  <main class="content" id="contentBox">
+    <div class="message" id="messageBox"> </div>
+    <div class="popup-buttons" id="btnContainer">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+    <div class="link-container" id="linkContainer">
+      <a href="surprise.html"> </a>
+    </div>
+  </main>
   <script>
-    const messageBox = document.getElementById('contentBox');
+    const messageBox = document.getElementById('messageBox');
+    const btnContainer = document.getElementById('btnContainer');
+    const linkContainer = document.getElementById('linkContainer');
+    // Initial setting -- hiding buttons and link
+    btnContainer.style.display = 'none';
+    linkContainer.style.display = 'none';
+    
     // Show first message
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
     }, 1000);
+    
     // Show second message and the yes/no popup
     setTimeout(() => {
       messageBox.textContent = "Wanna see what I made for you ?";
       setTimeout(() => {
-        const btnContainer = document.createElement('div');
-        btnContainer.className = 'popup-buttons';
-        btnContainer.innerHTML = `
-          <button id="yesButton">Yes</button>
-          <button id="noButton">No</button>
-        `;
-        messageBox.appendChild(btnContainer);
+        // Show buttons and link
+        btnContainer.style.display = 'block';
         btnContainer.classList.add('show');
-        // Also add the plain link
-        const linkContainer = document.createElement('div');
-        linkContainer.className = 'link-container';
-        linkContainer.innerHTML = `
-          <a href="surprise.html"> </a>
-        `;
-        messageBox.appendChild(linkContainer);
+        linkContainer.style.display = 'block';
+        linkContainer.classList.add('show');
+        
         // Button event handlers
         document.getElementById('yesButton').onclick = () => {
           window.location.href = "surprise.html";
