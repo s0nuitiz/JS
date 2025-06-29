@@ -81,6 +81,14 @@
       z-index: 1; /* Ensure emojis are below content */
       pointer-events: none; /* Allow clicking through the container */
     }
+    .emoji {
+      position: absolute;
+      bottom: 0; /* Start at the bottom of the container */
+      width: 40px; /* Emoji size */
+      height: 40px; /* Emoji size */
+      z-index: 1;
+      pointer-events: none;
+    }
     @keyframes rotate-clockwise {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -90,16 +98,8 @@
       to { transform: rotate(-360deg); }
     }
     @keyframes slide-up {
-      from { transform: translateY(0); }
-      to { transform: translateY(-110vh); }
-    }
-    .emoji {
-      position: absolute;
-      bottom: 0; /* Start at the bottom of the container */
-      width: 40px; /* Emoji size */
-      height: 40px; /* Emoji size */
-      z-index: 1;
-      pointer-events: none;
+      from { bottom: 0; }
+      to { bottom: 110vh; }
     }
   </style>
 </head>
@@ -157,19 +157,22 @@
       emojis.push(emoji);
 
       const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
-      const spinDuration = 4000 + Math.random() * 2000;
 
-      emoji.style.animation = `slide-up ${spinDuration}ms linear, ${spinDirection} 3s linear infinite`;
+      const spinDuration = 3000;       // Duration of one spin
+      const slideDuration = 4000 + Math.random() * 2000; // Duration of sliding up (randomized)
+
+      // Combine spin and slide animations
+      emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
 
       emojiContainer.appendChild(emoji);
-      
+
       setTimeout(() => {
         emoji.remove();
         const index = emojis.indexOf(emoji);
         if (index > -1) {
           emojis.splice(index, 1);
         }
-      }, spinDuration); // Remove after animation finishes
+      }, slideDuration + 1000); // Remove after animation finishes (with a bit of buffer)
     };
 
     const slideEmojis = () => {
