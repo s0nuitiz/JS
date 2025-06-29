@@ -10,23 +10,23 @@
       font-family: Arial, sans-serif;
       padding: 0;
       margin: 0;
-      position: relative; /* Ensure body is positioned for emoji animation */
+      position: relative;  /* Ensure body is positioned for emoji animation */
     }
     header {
       background: rgb(255, 227, 231);
       padding: 3.5rem;
-      position: relative; /* Ensure header is positioned for emoji animation */
+      position: relative;  /* Ensure header is positioned for emoji animation */
     }
     .content {
       background: white;
       padding: 0.1rem;
-      font-size: 1.5rem; /* Kept font size as before */
-      height: 20vh; /* Fixed exact height */
+      font-size: 1.5rem;  /* Kept font size as before */
+      height: 20vh;  /* Fixed exact height */
       display: flex;
-      flex-direction: column; /* so the text and the buttons are stacked vertically */
-      align-items: center; /* horizontally center */
-      justify-content: center; /* vertically center */
-      text-align: center; /* center text itself */
+      flex-direction: column;  /* so the text and the buttons are stacked vertically */
+      align-items: center;  /* horizontally center */
+      justify-content: center;  /* vertically center */
+      text-align: center;  /* center text itself */
       position: relative;
     }
     .message {
@@ -70,14 +70,14 @@
     .link-container a:hover {
       text-decoration: underline;
     }
-    /* Emoji animations */
+    /* Emoji animation */
     @keyframes slideUp {
       0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(100vh);
         opacity: 1;
       }
       100% {
-        transform: translateY(-30vh) rotate(360deg); /* Rotate the emoji */
+        transform: translateY(-30vh);  /* Adjusted to reach the top of the header */
         opacity: 0;
       }
     }
@@ -85,23 +85,10 @@
       font-size: 2rem;
       position: fixed;
       pointer-events: none;
-      animation: slideUp 10s linear infinite, spin 20s linear infinite; /* Add spin animation */
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .heart {
-      width: 32px;
-      height: 32px;
-      position: absolute;
-      fill: none;
-      stroke: #ff8aae; /* Slightly pinkish color */
-      stroke-width: 2px;
-      pointer-events: none;
+      animation: slideUp 5s linear infinite;
     }
   </style>
-</head>
+ </head>
 <body>
   <header id="header">
   </header>
@@ -146,29 +133,28 @@
         document.getElementById('noButton').onclick = () => {
           alert('Okay! Maybe next time. 😢');
         };
-      }, 2000); // wait 2s before showing popups and link
-    }, 3000); // wait until after the second message
+      }, 2000);  // wait 2s before showing popups and link
+    }, 3000);  // wait until after the second message
 
     // Function to generate and animate emojis
     function createEmojis(parent) {
-      const svgHeart = '<svg viewBox="0 0 24 24" class="heart"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-      for (let i = 0; i < 6; i++) {
-        const emojiContainer = document.createElement('div');
-        emojiContainer.innerHTML = svgHeart;
-        const emoji = emojiContainer.firstChild;
-        emoji.className = 'emoji heart';
+      const emojiList = ['❤️'];
+      for (let i = 0; i < 10; i++) {
+        const emoji = document.createElement('div');
+        emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+        emoji.className = 'emoji';
         emoji.style.left = `${Math.random() * 100}%`;
         emoji.style.animationDelay = `${Math.random() * 2}s`;
         parent.appendChild(emoji);
-        setTimeout(() => emoji.remove(), 10000); // remove after animation finishes
+        setTimeout(() => emoji.remove(), 5000);  // remove after animation finishes
       }
     }
 
     // Generate emojis within body continuously
-    setInterval(() => createEmojis(document.body), 2000); // generate emojis in body every 2 seconds
+    setInterval(() => createEmojis(document.body), 2000);  // generate emojis in body every 2 seconds
 
     // Generate emojis within header continuously
-    setInterval(() => createEmojis(headerSection), 2000); // generate emojis in header every 2 seconds
+    setInterval(() => createEmojis(headerSection), 2000);  // generate emojis in header every 2 seconds
   </script>
 </body>
 </html>
