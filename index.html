@@ -157,22 +157,23 @@
       emojis.push(emoji);
 
       const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
-
-      const spinDuration = 3000;       // Duration of one spin
+      const spinDuration = 3000; // Duration of one spin
       const slideDuration = 4000 + Math.random() * 2000; // Duration of sliding up (randomized)
 
       // Combine spin and slide animations
-      emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
+      emoji.style.animation = `
+        ${spinDirection} ${spinDuration}ms linear infinite,
+        slide-up ${slideDuration}ms linear`;
 
       emojiContainer.appendChild(emoji);
 
-      setTimeout(() => {
-        emoji.remove();
-        const index = emojis.indexOf(emoji);
-        if (index > -1) {
-          emojis.splice(index, 1);
+      // Ensure emojis are properly removed from the DOM
+      emoji.addEventListener('animationend', () => {
+        if (emoji && emoji.parentElement) {
+          emoji.parentElement.removeChild(emoji);
+          emojis.splice(emojis.indexOf(emoji), 1);
         }
-      }, slideDuration + 1000); // Remove after animation finishes (with a bit of buffer)
+      });
     };
 
     const slideEmojis = () => {
@@ -198,9 +199,7 @@
       setTimeout(() => {
         // Show buttons and link
         btnContainer.style.display = 'block';
-        btnContainer.classList.add('show');
         linkContainer.style.display = 'block';
-        linkContainer.classList.add('show');
         // Button event handlers
         document.getElementById('yesButton').onclick = () => {
           window.location.href = "surprise.html";
