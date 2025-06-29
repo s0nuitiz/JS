@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background: rgb(238, 211, 215);
+      background: rgb(255, 227, 231);
       font-family: Arial, sans-serif;
       padding: 0;
       margin: 0;
@@ -84,7 +84,8 @@
     .emoji {
       position: absolute;
       bottom: 0; /* Start at the bottom of the container */
-      font-size: 40px; /* Emoji size */
+      width: 40px; /* Emoji size */
+      height: 40px; /* Emoji size */
       z-index: 1;
       pointer-events: none;
     }
@@ -108,16 +109,18 @@
     const btnContainer = document.getElementById('btnContainer');
     const linkContainer = document.getElementById('linkContainer');
     const emojiContainer = document.getElementById('emojiContainer');
-
+    
     // Initial setting -- hiding buttons and link
     btnContainer.style.display = 'none';
     linkContainer.style.display = 'none';
 
+    // SVG heart emoji with transparent fill and pinkish stroke
+    const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
     const slideEmojis = () => {
-      const emojiList = ['❤️'];; // Love emojis
       for (let i = 0; i < 6; i++) {
         const emoji = document.createElement('div');
-        emoji.textContent = emojiList[i % emojiList.length]; // Use emojis in sequence
+        emoji.innerHTML = heartSVG; // Use SVG heart emoji
         emoji.className = 'emoji';
         emoji.style.left = `${Math.random() * 90}%`; // Random horizontal position
         emojiContainer.appendChild(emoji);
@@ -131,10 +134,9 @@
             fill: 'forwards'
           }
         );
-        
+
         setTimeout(() => emoji.remove(), 6000); // Remove after animation finishes
       }
-
       // Call slideEmojis again after current batch finishes
       setTimeout(slideEmojis, 2000); // Adjust the interval as needed
     };
@@ -146,7 +148,7 @@
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
     }, 1000);
-
+    
     // Show second message and the yes/no popup
     setTimeout(() => {
       messageBox.textContent = "Wanna see what I made for you ?";
