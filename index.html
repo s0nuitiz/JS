@@ -161,7 +161,14 @@
         linkContainer.classList.add('show');
         // Button event handlers
         document.getElementById('yesButton').onclick = () => {
-          window.location.href = "surprise.html";
+          // Change text and remove buttons
+          messageBox.textContent = "Have A Look At It.";
+          btnContainer.style.display = "none";
+          linkContainer.style.display = "none";
+          // Redirect after 3 seconds
+          setTimeout(() => {
+            window.location.href = "light.html";
+          }, 3000);
         };
         document.getElementById('noButton').onclick = () => {
           alert('Okay! Maybe next time. 😢');
