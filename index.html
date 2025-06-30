@@ -20,7 +20,7 @@
       background: white;
       padding: 0.1rem;
       font-size: 1.5rem;
-      width: 90%;
+      width: 100%; /* Expand to full width */
       height: 20vh;
       display: flex;
       flex-direction: column;
@@ -106,7 +106,7 @@
 </head>
 <body>
   <main class="content">
-    <div class="message" id="messageBox">Loading...</div>
+    <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes</button>
       <button id="noButton">No</button>
@@ -145,33 +145,36 @@
 
     function showPopup() {
       messageBox.textContent = "Wanna see what I made for you?";
-      btnContainer.style.display = 'flex';
-      btnContainer.classList.add('show');
-      linkContainer.style.display = 'flex';
-      linkContainer.classList.add('show');
+      setTimeout(() => {
+        btnContainer.style.display = 'flex';
+        btnContainer.classList.add('show');
+        linkContainer.style.display = 'flex';
+        linkContainer.classList.add('show');
 
-      document.getElementById('yesButton').addEventListener('click', () => {
-        messageBox.textContent = "Have A Look At It.";
-        btnContainer.style.display = 'none';
-        linkContainer.style.display = 'none';
-        setTimeout(() => {
-          window.location.href = "light.html";
-        }, 3000);
-      });
-
-      document.getElementById('noButton').addEventListener('click', () => {
-        messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
-        document.getElementById('noButton').style.display = 'none';
-        linkContainer.style.display = 'none';
-
-        setTimeout(() => {
-          document.getElementById('yesButton').style.opacity = '0';
-          document.getElementById('yesButton').style.display = 'block';
+        document.getElementById('yesButton').addEventListener('click', () => {
+          messageBox.textContent = "Have A Look At It.";
+          btnContainer.style.display = 'none';
+          linkContainer.style.display = 'none';
           setTimeout(() => {
-            document.getElementById('yesButton').style.opacity = '1';
-          }, 50);
-        }, 3000);
-      });
+            window.location.href = "light.html";
+          }, 3000);
+        });
+
+        document.getElementById('noButton').addEventListener('click', () => {
+          messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
+          document.getElementById('noButton').style.display = 'none';
+          yesButton.style.display = 'none';
+          linkContainer.style.display = 'none';
+
+          setTimeout(() => {
+            document.getElementById('yesButton').style.opacity = '0';
+            document.getElementById('yesButton').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('yesButton').style.opacity = '1';
+            }, 50);
+          }, 3000);
+        });
+      }, 3000);  // 3 seconds delay before showing buttons
     }
 
     setTimeout(() => {
