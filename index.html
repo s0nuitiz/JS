@@ -20,7 +20,7 @@
       background: white;
       padding: 0.1rem;
       font-size: 1.5rem;
-      width: 100%;
+      width: 90%;
       height: 20vh;
       display: flex;
       flex-direction: column;
@@ -29,7 +29,7 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      transform: translateY(-80%);
+      transform: translateY(-50%);
     }
     .message {
       margin-bottom: 1rem;
@@ -106,7 +106,7 @@
 </head>
 <body>
   <main class="content">
-    <div class="message" id="messageBox"></div>
+    <div class="message" id="messageBox">Loading...</div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes</button>
       <button id="noButton">No</button>
@@ -122,39 +122,17 @@
     const linkContainer = document.getElementById('linkContainer');
     const emojiContainer = document.getElementById('emojiContainer');
     const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-    const emojis = [];
-
+    
     function createEmoji() {
       const emoji = document.createElement('div');
       emoji.innerHTML = heartSVG;
       emoji.className = 'emoji';
-      let randomLeft;
-      let overlapping;
-
-      do {
-        randomLeft = Math.random() * 90;
-        overlapping = false;
-        for (const existingEmoji of emojis) {
-          const existingLeft = parseFloat(existingEmoji.style.left);
-          if (Math.abs(existingLeft - randomLeft) < 7) {
-            overlapping = true;
-            break;
-          }
-        }
-      } while (overlapping);
-
+      let randomLeft = Math.random() * 90;
       emoji.style.left = `${randomLeft}%`;
-      emojis.push(emoji);
-      const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
-      const spinDuration = 3000;
-      const slideDuration = 5000 + Math.random() * 2000;
-      emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
-      emoji.addEventListener('animationend', () => {
-        emoji.remove();
-        emojis.splice(emojis.indexOf(emoji), 1);
-      });
+      emoji.style.animation = `rotate-clockwise 3000ms linear infinite, slide-up ${5000 + Math.random() * 2000}ms linear`;
       emojiContainer.appendChild(emoji);
-    };
+      emoji.addEventListener('animationend', () => emoji.remove());
+    }
 
     function slideEmojis() {
       for (let i = 0; i < 6; i++) {
@@ -165,40 +143,40 @@
 
     slideEmojis();
 
-    function showElements() {
+    function showPopup() {
       messageBox.textContent = "Wanna see what I made for you?";
       btnContainer.style.display = 'flex';
       btnContainer.classList.add('show');
       linkContainer.style.display = 'flex';
       linkContainer.classList.add('show');
-      
-      document.getElementById('yesButton').onclick = () => {
+
+      document.getElementById('yesButton').addEventListener('click', () => {
         messageBox.textContent = "Have A Look At It.";
-        btnContainer.style.display = "none";
-        linkContainer.style.display = "none";
+        btnContainer.style.display = 'none';
+        linkContainer.style.display = 'none';
         setTimeout(() => {
           window.location.href = "light.html";
         }, 3000);
-      };
+      });
 
-      document.getElementById('noButton').onclick = () => {
+      document.getElementById('noButton').addEventListener('click', () => {
         messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
         document.getElementById('noButton').style.display = 'none';
-        linkContainer.style.display = "none";
+        linkContainer.style.display = 'none';
 
         setTimeout(() => {
-          document.getElementById('yesButton').style.display = 'block';
           document.getElementById('yesButton').style.opacity = '0';
+          document.getElementById('yesButton').style.display = 'block';
           setTimeout(() => {
-                document.getElementById('yesButton').style.opacity = '1';
-          }, 10);
+            document.getElementById('yesButton').style.opacity = '1';
+          }, 50);
         }, 3000);
-      };
+      });
     }
 
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
-      setTimeout(showElements, 3000);
+      setTimeout(showPopup, 3000);
     }, 1000);
   </script>
 </body>
