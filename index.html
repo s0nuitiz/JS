@@ -163,16 +163,8 @@
         document.getElementById('noButton').addEventListener('click', () => {
           messageBox.textContent = "Why ? 😢 Please check out once... I Insist 🙏";
           document.getElementById('noButton').style.display = 'none';
-          yesButton.style.display = 'none';
           linkContainer.style.display = 'none';
-
-          setTimeout(() => {
-            document.getElementById('yesButton').style.opacity = '0';
-            document.getElementById('yesButton').style.display = 'block';
-            setTimeout(() => {
-              document.getElementById('yesButton').style.opacity = '1';
-            }, 50);
-          }, 3000);
+          document.getElementById('yesButton').style.display = 'block';
         });
       }, 3000);  // 3 seconds delay before showing buttons
     }
