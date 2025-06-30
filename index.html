@@ -10,7 +10,8 @@
       font-family: Arial, sans-serif;
       padding: 0;
       margin: 0;
-      height: 100vh;
+      height: 100vh; /* Fill the full viewport height */
+      overflow: hidden; /* Prevent scrolling */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -206,9 +207,10 @@
         document.getElementById('noButton').onclick = () => {
           // Change text to pleading and folded hands emojis text
           messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
-          // Hide No button
+          // Hide No button and link container
           document.getElementById('noButton').style.display = 'none';
-          // Show Yes button after 3 seconds
+          linkContainer.style.display = "none";
+          // Show Yes button again after 3 seconds
           setTimeout(() => {
             document.getElementById('yesButton').style.display = 'block';
             document.getElementById('yesButton').style.opacity = '0';
