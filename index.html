@@ -108,7 +108,7 @@
   <main class="content">
     <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
-      <button id="yesButton">Yes</button>
+      <button id="yesButton">Yes !</button>
       <button id="noButton">No</button>
     </div>
     <div class="link-container" id="linkContainer">
@@ -144,7 +144,7 @@
     slideEmojis();
 
     function showPopup() {
-      messageBox.textContent = "Wanna see what I made for you?";
+      messageBox.textContent = "Wanna see what I made for you ?";
       setTimeout(() => {
         btnContainer.style.display = 'flex';
         btnContainer.classList.add('show');
@@ -161,7 +161,7 @@
         });
 
         document.getElementById('noButton').addEventListener('click', () => {
-          messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
+          messageBox.textContent = "Why? 😢 Please check out once... I Insist 🙏";
           document.getElementById('noButton').style.display = 'none';
           yesButton.style.display = 'none';
           linkContainer.style.display = 'none';
