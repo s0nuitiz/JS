@@ -10,8 +10,7 @@
       font-family: Arial, sans-serif;
       padding: 0;
       margin: 0;
-      height: 100vh; /* Fill the full viewport height */
-      overflow: hidden; /* Prevent scrolling */
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,7 +19,7 @@
       background: white;
       padding: 0.1rem;
       font-size: 1.5rem;
-      width: 100%; /* Ensure it takes the full width of the viewport */
+      width: 100%;
       height: 20vh;
       display: flex;
       flex-direction: column;
@@ -29,51 +28,43 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      transform: translateY(-80%); /* Move content further upward from the center */
+      transform: translateY(-80%);
     }
     .message {
       margin-bottom: 1rem;
     }
-    .popup-buttons {
+    .popup-buttons,
+    .link-container {
       margin-top: 1rem;
       opacity: 0;
       transition: opacity 0.5s ease;
       display: none;
     }
-    .popup-buttons.show {
+    .popup-buttons.show,
+    .link-container.show {
       opacity: 1;
-      display: block;
+      display: flex;
     }
     .popup-buttons button {
       padding: 0.7rem 1.2rem;
       border: none;
-      border-radius: 9999px; /* Fully rounded corners */
+      border-radius: 9999px;
       margin: 0 0.5rem;
       cursor: pointer;
       font-size: 1rem;
-      color: white; /* Sets the text color to white */
+      color: white;
     }
     .popup-buttons #yesButton {
-      background: #e9557a; /* Pink background for Yes button */
+      background: #e9557a;
     }
     .popup-buttons #yesButton:hover {
-      background: #d43b61; /* Darker pink on hover */
+      background: #d43b61;
     }
     .popup-buttons #noButton {
-      background: #cb77d3; /* Purple background for No button */
+      background: #cb77d3;
     }
     .popup-buttons #noButton:hover {
-      background: #ae65b4; /* Darker purple on hover */
-    }
-    .link-container {
-      margin-top: 2rem;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      display: none;
-    }
-    .link-container.show {
-      opacity: 1;
-      display: block;
+      background: #ae65b4;
     }
     .link-container a {
       color: #4285f4;
@@ -87,7 +78,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-      height: 80vh;
+      height: 70vh;
       z-index: 1;
       pointer-events: none;
     }
@@ -114,7 +105,7 @@
   </style>
 </head>
 <body>
-  <main class="content" id="contentBox">
+  <main class="content">
     <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes</button>
@@ -130,97 +121,85 @@
     const btnContainer = document.getElementById('btnContainer');
     const linkContainer = document.getElementById('linkContainer');
     const emojiContainer = document.getElementById('emojiContainer');
-    // Initial setting -- hiding buttons and link
-    btnContainer.style.display = 'none';
-    linkContainer.style.display = 'none';
-    // SVG heart emoji with transparent fill and pinkish stroke
     const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
     const emojis = [];
+
     const createEmoji = () => {
       const emoji = document.createElement('div');
-      emoji.innerHTML = heartSVG; // Use SVG heart emoji
+      emoji.innerHTML = heartSVG;
       emoji.className = 'emoji';
       let randomLeft;
       let overlapping;
-      // Generate random position and check for overlapping
+
       do {
         randomLeft = Math.random() * 90;
         overlapping = false;
         for (const existingEmoji of emojis) {
           const existingLeft = parseFloat(existingEmoji.style.left);
-          if (Math.abs(existingLeft - randomLeft) < 7) { // Adjust the threshold as needed
+          if (Math.abs(existingLeft - randomLeft) < 7) {
             overlapping = true;
             break;
           }
         }
       } while (overlapping);
-      emoji.style.left = `${randomLeft}%`; // Set position after ensuring no overlap
+
+      emoji.style.left = `${randomLeft}%`;
       emojis.push(emoji);
       const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
-      const spinDuration = 3000; // Duration of one spin
-      const slideDuration = 4000 + Math.random() * 2000; // Duration of sliding up (randomized)
-      // Combine spin and slide animations
+      const spinDuration = 3000;
+      const slideDuration = 5000 + Math.random() * 2000;
       emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
-      emojiContainer.appendChild(emoji);
-      // Ensure emojis are properly removed from the DOM
       emoji.addEventListener('animationend', () => {
-        if (emoji && emoji.parentElement) {
-          emoji.parentElement.removeChild(emoji);
-          emojis.splice(emojis.indexOf(emoji), 1);
-        }
+        emojiContainer.removeChild(emoji);
+        emojis.splice(emojis.indexOf(emoji), 1);
       });
+      emojiContainer.appendChild(emoji);
     };
+
     const slideEmojis = () => {
       for (let i = 0; i < 6; i++) {
-        // Create each emoji at a random interval between 0 and 2000ms
         setTimeout(createEmoji, Math.random() * 2000);
       }
-      // Call slideEmojis again after current batch finishes
-      setTimeout(slideEmojis, 4000); // Adjust the interval as needed
+      setTimeout(slideEmojis, 4000);
     };
-    // Start sliding emojis continuously
+
     slideEmojis();
-    // Show first message
+
+    const showElements = () => {
+      messageBox.textContent = "Wanna see what I made for you?";
+      btnContainer.style.display = 'flex';
+      btnContainer.classList.add('show');
+      linkContainer.style.display = 'flex';
+      linkContainer.classList.add('show');
+      
+      document.getElementById('yesButton').onclick = () => {
+        messageBox.textContent = "Have A Look At It.";
+        btnContainer.style.display = "none";
+        linkContainer.style.display = "none";
+        setTimeout(() => {
+          window.location.href = "light.html";
+        }, 3000);
+      };
+
+      document.getElementById('noButton').onclick = () => {
+        messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
+        document.getElementById('noButton').style.display = 'none';
+        linkContainer.style.display = "none";
+
+        setTimeout(() => {
+          document.getElementById('yesButton').style.display = 'block';
+          document.getElementById('yesButton').style.opacity = '0';
+          setTimeout(() => {
+                document.getElementById('yesButton').style.opacity = '1';
+          }, 10);
+        }, 3000);
+      };
+    };
+
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
+      setTimeout(showElements, 3000);
     }, 1000);
-    // Show second message and the yes/no popup
-    setTimeout(() => {
-      messageBox.textContent = "Wanna see what I made for you ?";
-      setTimeout(() => {
-        // Show buttons and link
-        btnContainer.style.display = 'block';
-        btnContainer.classList.add('show');
-        linkContainer.style.display = 'block';
-        linkContainer.classList.add('show');
-        // Button event handlers
-        document.getElementById('yesButton').onclick = () => {
-          // Change text and remove buttons
-          messageBox.textContent = "Have A Look At It.";
-          btnContainer.style.display = "none";
-          linkContainer.style.display = "none";
-          // Redirect after 3 seconds
-          setTimeout(() => {
-            window.location.href = "light.html";
-          }, 3000);
-        };
-        document.getElementById('noButton').onclick = () => {
-          // Change text to pleading and folded hands emojis text
-          messageBox.textContent = "Why? 😢 Please check out once.. I Insist 🙏";
-          // Hide No button and link container
-          document.getElementById('noButton').style.display = 'none';
-          linkContainer.style.display = "none";
-          // Show Yes button again after 3 seconds
-          setTimeout(() => {
-            document.getElementById('yesButton').style.display = 'block';
-            document.getElementById('yesButton').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('yesButton').style.opacity = '1';
-            }, 10); // Small timeout to ensure transition works
-        }, 3000); // Wait 3 seconds before showing the Yes button again
-        };
-      }, 2000); // Wait 2s before showing popups and link
-    }, 3000); // Wait until after the initial message
   </script>
 </body>
 </html>
