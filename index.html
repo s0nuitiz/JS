@@ -7,71 +7,119 @@
   <style>
     body {
       background: rgb(255, 227, 231);
-      font-family: Arial, sans-serif; padding: 0; margin: 0;
-    }
-    header {
-      background: rgb(255, 227, 231); padding: 3.5rem;
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .content {
-      background: white; padding: 0.1rem; font-size: 1.5rem; height: 20vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; position: relative; z-index: 2;
+      background: white;
+      padding: 0.1rem;
+      font-size: 1.5rem;
+      height: 20vh; /* Adjust height if necessary */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      transform: translateY(-60%); /* Move content further upward from the center */
     }
     .message {
       margin-bottom: 1rem;
     }
     .popup-buttons {
-      margin-top: 1rem; opacity: 0; transition: opacity 0.5s ease; display: none;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: none;
     }
     .popup-buttons.show {
-      opacity: 1; display: block;
+      opacity: 1;
+      display: block;
     }
     .popup-buttons button {
-      background: #4285f4; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 4px;
-      margin: 0 0.5rem; cursor: pointer; font-size: 1rem;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 9999px; /* Fully rounded corners */
+      margin: 0 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white; /* Sets the text color to white */
     }
-    .popup-buttons button:hover {
-      background: #3367d6;
+    .popup-buttons #yesButton {
+      background: #e9557a; /* Pink background for Yes button */
+    }
+    .popup-buttons #yesButton:hover {
+      background: #d43b61; /* Darker pink on hover */
+    }
+    .popup-buttons #noButton {
+      background: #ea4335; /* Red background for No button */
+    }
+    .popup-buttons #noButton:hover {
+      background: #c5332c; /* Darker red on hover */
     }
     .link-container {
-      margin-top: 2rem; opacity: 0; transition: opacity 0.5s ease; display: none;
+      margin-top: 2rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: none;
     }
     .link-container.show {
-      opacity: 1; display: block;
+      opacity: 1;
+      display: block;
     }
     .link-container a {
-      color: #4285f4; font-size: 1.2rem; text-decoration: none;
+      color: #4285f4;
+      font-size: 1.2rem;
+      text-decoration: none;
     }
     .link-container a:hover {
       text-decoration: underline;
     }
     .emoji-container {
-      position: fixed; bottom: 0; width: 100%; height: 80vh; z-index: 1; pointer-events: none;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 80vh;
+      z-index: 1;
+      pointer-events: none;
     }
     .emoji {
-      position: absolute; bottom: 0; width: 40px; height: 40px; z-index: 1; pointer-events: none;
+      position: absolute;
+      bottom: 0;
+      width: 40px;
+      height: 40px;
+      z-index: 1;
+      pointer-events: none;
     }
     @keyframes rotate-clockwise {
-      from { transform: rotate(0deg); } to { transform: rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     @keyframes rotate-counterclockwise {
-      from { transform: rotate(0deg); } to { transform: rotate(-360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
     }
     @keyframes slide-up {
-      from { bottom: 0; } to { bottom: 110vh; }
+      from { bottom: 0; }
+      to { bottom: 110vh; }
     }
   </style>
 </head>
 <body>
-  <header> </header>
   <main class="content" id="contentBox">
-    <div class="message" id="messageBox"> </div>
+    <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes</button>
       <button id="noButton">No</button>
     </div>
     <div class="link-container" id="linkContainer">
-      <a href="surprise.html"> </a>
+      <a href="surprise.html"></a>
     </div>
   </main>
   <div class="emoji-container" id="emojiContainer"></div>
@@ -80,24 +128,18 @@
     const btnContainer = document.getElementById('btnContainer');
     const linkContainer = document.getElementById('linkContainer');
     const emojiContainer = document.getElementById('emojiContainer');
-    
     // Initial setting -- hiding buttons and link
     btnContainer.style.display = 'none';
     linkContainer.style.display = 'none';
-
     // SVG heart emoji with transparent fill and pinkish stroke
     const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-
     const emojis = [];
-
     const createEmoji = () => {
       const emoji = document.createElement('div');
       emoji.innerHTML = heartSVG; // Use SVG heart emoji
       emoji.className = 'emoji';
-
       let randomLeft;
       let overlapping;
-
       // Generate random position and check for overlapping
       do {
         randomLeft = Math.random() * 90;
@@ -110,20 +152,14 @@
           }
         }
       } while (overlapping);
-
       emoji.style.left = `${randomLeft}%`; // Set position after ensuring no overlap
-
       emojis.push(emoji);
-
       const spinDirection = Math.random() > 0.5 ? 'rotate-clockwise' : 'rotate-counterclockwise';
       const spinDuration = 3000; // Duration of one spin
       const slideDuration = 4000 + Math.random() * 2000; // Duration of sliding up (randomized)
-
       // Combine spin and slide animations
       emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
-
       emojiContainer.appendChild(emoji);
-
       // Ensure emojis are properly removed from the DOM
       emoji.addEventListener('animationend', () => {
         if (emoji && emoji.parentElement) {
@@ -132,7 +168,6 @@
         }
       });
     };
-
     const slideEmojis = () => {
       for (let i = 0; i < 6; i++) {
         // Create each emoji at a random interval between 0 and 2000ms
@@ -141,15 +176,12 @@
       // Call slideEmojis again after current batch finishes
       setTimeout(slideEmojis, 4000); // Adjust the interval as needed
     };
-
     // Start sliding emojis continuously
     slideEmojis();
-
     // Show first message
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
     }, 1000);
-    
     // Show second message and the yes/no popup
     setTimeout(() => {
       messageBox.textContent = "Wanna see what I made for you ?";
