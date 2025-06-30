@@ -11,6 +11,7 @@
       padding: 0;
       margin: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,7 +36,6 @@
     }
     .popup-buttons,
     .link-container {
-      margin-top: 1rem;
       opacity: 0;
       transition: opacity 0.5s ease;
       display: none;
@@ -124,7 +124,7 @@
     const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
     const emojis = [];
 
-    const createEmoji = () => {
+    function createEmoji() {
       const emoji = document.createElement('div');
       emoji.innerHTML = heartSVG;
       emoji.className = 'emoji';
@@ -150,22 +150,22 @@
       const slideDuration = 5000 + Math.random() * 2000;
       emoji.style.animation = `${spinDirection} ${spinDuration}ms linear infinite, slide-up ${slideDuration}ms linear`;
       emoji.addEventListener('animationend', () => {
-        emojiContainer.removeChild(emoji);
+        emoji.remove();
         emojis.splice(emojis.indexOf(emoji), 1);
       });
       emojiContainer.appendChild(emoji);
     };
 
-    const slideEmojis = () => {
+    function slideEmojis() {
       for (let i = 0; i < 6; i++) {
         setTimeout(createEmoji, Math.random() * 2000);
       }
       setTimeout(slideEmojis, 4000);
-    };
+    }
 
     slideEmojis();
 
-    const showElements = () => {
+    function showElements() {
       messageBox.textContent = "Wanna see what I made for you?";
       btnContainer.style.display = 'flex';
       btnContainer.classList.add('show');
@@ -194,7 +194,7 @@
           }, 10);
         }, 3000);
       };
-    };
+    }
 
     setTimeout(() => {
       messageBox.textContent = "It's Your Special Day Yeeeey !!!";
