@@ -19,6 +19,7 @@
       background: white;
       padding: 0.1rem;
       font-size: 1.5rem;
+      width: 100%; /* Ensure it takes the full width of the viewport */
       height: 20vh;
       display: flex;
       flex-direction: column;
@@ -146,7 +147,7 @@
         overlapping = false;
         for (const existingEmoji of emojis) {
           const existingLeft = parseFloat(existingEmoji.style.left);
-          if (Math.abs(existingLeft - randomLeft) < 5) { // Adjust the threshold as needed
+          if (Math.abs(existingLeft - randomLeft) < 7) { // Adjust the threshold as needed
             overlapping = true;
             break;
           }
@@ -206,7 +207,7 @@
           alert('Okay! Maybe next time. 😢');
         };
       }, 2000); // Wait 2s before showing popups and link
-    }, 5000); // Wait until after the second message
+    }, 3000); // Wait until after the initial message
   </script>
 </body>
 </html>
