@@ -18,7 +18,7 @@
     }
     .content {
       background: white;
-      padding: 1rem;
+      padding: 0.1rem;
       font-size: 1.5rem;
       width: 100%; /* Expand to full width */
       height: 20vh;
@@ -29,14 +29,10 @@
       text-align: center;
       position: relative;
       z-index: 2;
-    }
-    .emoji-fixed {
-      font-size: 2rem;
-      position: absolute;
-      top: 0.5rem;
+      transform: translateY(-80%);
     }
     .message {
-      margin: 1.5rem 0;
+      margin-bottom: 1rem;
     }
     .popup-buttons,
     .link-container {
@@ -110,7 +106,6 @@
 </head>
 <body>
   <main class="content">
-    <div class="emoji-fixed">🌻</div>
     <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes !</button>
@@ -145,14 +140,14 @@
     }
     slideEmojis();
     function showPopup() {
-      messageBox.innerHTML = "Wanna see what I made for you ?";
+      messageBox.textContent = "Wanna see what I made for you ?";
       setTimeout(() => {
         btnContainer.style.display = 'flex';
         btnContainer.classList.add('show');
         linkContainer.style.display = 'flex';
         linkContainer.classList.add('show');
         document.getElementById('yesButton').addEventListener('click', () => {
-          messageBox.innerHTML = "Have A Look At It.";
+          messageBox.textContent = "Have A Look At It.";
           btnContainer.style.display = 'none';
           linkContainer.style.display = 'none';
           setTimeout(() => {
@@ -168,7 +163,7 @@
       }, 3000);  // 3 seconds delay before showing buttons
     }
     setTimeout(() => {
-      messageBox.innerHTML = "It's Your Special Day Yeeeey !!!";
+      messageBox.textContent = "It's Your Special Day Yeeeey !!!";
       setTimeout(showPopup, 3000);
     }, 1000);
   </script>
