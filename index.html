@@ -29,7 +29,7 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      margin-top: -15rem;  /* Move the entire .content more upwards */
+      margin-top: -15rem;  /* Move the entire .content upwards */
     }
     .emoji-fixed {
       font-size: 2rem;
@@ -38,7 +38,6 @@
     }
     .message {
       margin: 3.5rem 0 1.5rem;  /* Margin default for general use */
-      padding-left: 0.5rem; /* Default padding */
     }
     .popup-buttons,
     .link-container {
@@ -164,7 +163,7 @@
         document.getElementById('noButton').addEventListener('click', () => {
           messageBox.innerHTML = "Why ? 😢 Please check out once...<br>I Insist 🙏";
           messageBox.style.marginTop = '2rem';  // Move the message up
-          messageBox.style.paddingLeft = '1rem';  // Move the message to the left
+          messageBox.style.paddingLeft = '2rem';  // Move the message to the left
           document.getElementById('noButton').style.display = 'none';
           linkContainer.style.display = 'none';
           const yesButton = document.getElementById('yesButton');
