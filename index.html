@@ -18,7 +18,7 @@
     }
     .content {
       background: white;
-      padding: 0.1rem;
+      padding: 1rem;
       font-size: 1.5rem;
       width: 100%; /* Expand to full width */
       height: 20vh;
@@ -29,10 +29,14 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      transform: translateY(-80%);
+    }
+    .emoji-fixed {
+      font-size: 2rem;
+      position: absolute;
+      top: 0.5rem;
     }
     .message {
-      margin-bottom: 1rem;
+      margin: 3.5rem 0 1.5rem;  /* Margin default for general use */
     }
     .popup-buttons,
     .link-container {
@@ -106,6 +110,7 @@
 </head>
 <body>
   <main class="content">
+    <div class="emoji-fixed">🌻</div>
     <div class="message" id="messageBox"></div>
     <div class="popup-buttons" id="btnContainer">
       <button id="yesButton">Yes !</button>
@@ -122,7 +127,6 @@
     const linkContainer = document.getElementById('linkContainer');
     const emojiContainer = document.getElementById('emojiContainer');
     const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40px" height="40px"><path fill="none" stroke="#ff66b2" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.21 2.64A5.006 5.006 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-    
     function createEmoji() {
       const emoji = document.createElement('div');
       emoji.innerHTML = heartSVG;
@@ -133,44 +137,40 @@
       emojiContainer.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
     }
-
     function slideEmojis() {
       for (let i = 0; i < 6; i++) {
         setTimeout(createEmoji, Math.random() * 2000);
       }
       setTimeout(slideEmojis, 4000);
     }
-
     slideEmojis();
-
     function showPopup() {
-      messageBox.textContent = "Wanna see what I made for you ?";
+      messageBox.innerHTML = "Wanna see what I made for you ?";
       setTimeout(() => {
         btnContainer.style.display = 'flex';
         btnContainer.classList.add('show');
         linkContainer.style.display = 'flex';
         linkContainer.classList.add('show');
-
         document.getElementById('yesButton').addEventListener('click', () => {
-          messageBox.textContent = "Have A Look At It.";
+          messageBox.innerHTML = "Have A Look At It.";
           btnContainer.style.display = 'none';
           linkContainer.style.display = 'none';
           setTimeout(() => {
             window.location.href = "light.html";
           }, 3000);
         });
-
         document.getElementById('noButton').addEventListener('click', () => {
           messageBox.innerHTML = "Why ? 😢 Please check out once...<br>I Insist 🙏";
+          messageBox.style.marginTop = '2rem';  // Move the message up
           document.getElementById('noButton').style.display = 'none';
           linkContainer.style.display = 'none';
-          document.getElementById('yesButton').style.display = 'block';
+          const yesButton = document.getElementById('yesButton');
+          yesButton.style.marginTop = '-20px';  /* Move the 'Yes!' button up */
         });
       }, 3000);  // 3 seconds delay before showing buttons
     }
-
     setTimeout(() => {
-      messageBox.textContent = "It's Your Special Day Yeeeey !!!";
+      messageBox.innerHTML = "It's Your Special Day Yeeeey !!!";
       setTimeout(showPopup, 3000);
     }, 1000);
   </script>
