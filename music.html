@@ -85,7 +85,6 @@
     audio.loop = true;
     audio.play();
     musicButton.remove();
-
     const decorateButton = document.createElement('button');
     decorateButton.textContent = 'Decorate';
     decorateButton.onclick = () => {
@@ -93,20 +92,14 @@
       if (existingImage) existingImage.remove();
       const img = document.createElement('img');
       img.src = '—Pngtree—happy birthday decoration_7693051.png'; // your transparent image file
-      img.className = 'fullscreen-image';
+      img.className = 'fullscreen-image slide-in';
       document.body.appendChild(img);
-      // Trigger the slide-in effect
-      requestAnimationFrame(() => {
-        img.classList.add('slide-in');
-      });
       // Remove DecorateButton
       decorateButton.remove();
-
       // Create Fly the Balloons button
       const flyButton = document.createElement('button');
       flyButton.textContent = 'Fly the Balloons';
       document.querySelector('.popup-buttons').appendChild(flyButton);
-
       flyButton.onclick = () => {
         const balloonImages = [
           'balloon-pink.png',   // Pink balloon
@@ -138,28 +131,20 @@
         }
         // Remove FlyButton
         flyButton.remove();
-
         // Create CakeButton
         const cakeButton = document.createElement('button');
         cakeButton.textContent = "Let's Cut the Cake";
         document.querySelector('.popup-buttons').appendChild(cakeButton);
-
         cakeButton.onclick = () => {
           const img = document.createElement('img');
           img.src = 'cake.png'; // your cake image file
-          img.className = 'cake-image';
+          img.className = 'cake-image slide-in';
           document.body.appendChild(img);
-          // Trigger the slide-up effect
-          requestAnimationFrame(() => {
-            img.classList.add('slide-in');
-          });
           // Replace cakeButton with moreButton
           cakeButton.remove();
-
           const moreButton = document.createElement('button');
           moreButton.textContent = "Wait There's More !!!";
           document.querySelector('.popup-buttons').appendChild(moreButton);
-
           moreButton.onclick = () => {
             // Stop the music
             if (audio) {
