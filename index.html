@@ -162,6 +162,7 @@
         });
         document.getElementById('noButton').addEventListener('click', () => {
           messageBox.innerHTML = "Why ? 😢 Please check out once...<br>I Insist 🙏";
+          messageBox.style.marginBottom = '2rem';  // Move the message down
           document.getElementById('noButton').style.display = 'none';
           linkContainer.style.display = 'none';
           document.getElementById('yesButton').style.display = 'block';
