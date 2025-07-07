@@ -29,7 +29,6 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      margin-top: -15rem;  /* Move the entire .content upwards */
     }
     .emoji-fixed {
       font-size: 2rem;
@@ -37,7 +36,7 @@
       top: 0.5rem;
     }
     .message {
-      margin: 3.5rem;  /* Margin default for general use */
+      margin: 1.5rem 0;
     }
     .popup-buttons,
     .link-container {
@@ -162,11 +161,9 @@
         });
         document.getElementById('noButton').addEventListener('click', () => {
           messageBox.innerHTML = "Why ? 😢 Please check out once...<br>I Insist 🙏";
-          messageBox.style.marginTop = '2rem';  // Move the message up
           document.getElementById('noButton').style.display = 'none';
           linkContainer.style.display = 'none';
-          const yesButton = document.getElementById('yesButton');
-          yesButton.style.marginTop = '-20px';  /* Move the 'Yes!' button up */
+          document.getElementById('yesButton').style.display = 'block';
         });
       }, 3000);  // 3 seconds delay before showing buttons
     }
