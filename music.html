@@ -14,7 +14,7 @@
     justify-content: center;   /* center the content horizontally */
     align-items: flex-start;   /* align the group toward top */
     padding-top: 50px;         /* optional top padding */
-    height: 100vh;         /* take full screen height */
+    height: 100vh;             /* take full screen height */
     overflow: hidden;
   }
   .content {
@@ -80,7 +80,7 @@
   const musicButton = document.getElementById('MusicButton');
   let audio;
   musicButton.onclick = () => {
-    // Play background music
+    // Play background music instantly
     audio = new Audio('videoplayback.m4a'); // put your music file path here
     audio.loop = true;
     audio.play();
@@ -106,10 +106,9 @@
           'balloon-blue.png',   // Blue balloon
           'balloon-green.png'   // Green balloon
         ];
-        // Total balloons
+        // Create and animate balloons instantly
         for (let i = 0; i < 6; i++) {
           const balloon = document.createElement('img');
-          // Pick one of the 3 images in sequence (i.e. i % 3)
           balloon.src = balloonImages[i % balloonImages.length];
           balloon.style.left = `${Math.random() * 90}%`;    // random horizontal position
           balloon.style.bottom = '-100px';
@@ -118,11 +117,10 @@
           balloon.style.zIndex = '1';
           balloon.style.pointerEvents = 'none';
           document.body.appendChild(balloon);
-          // Animate the balloon going up
           balloon.animate(
             [{ transform: 'translateY(0)' }, { transform: 'translateY(-110vh)' }],
             {
-              duration: 4000 + Math.random() * 2000,  // each will take 4-6s
+              duration: 4000 + Math.random() * 2000,  // each will take 4-6 seconds
               easing: 'linear',
               fill: 'forwards'
             }
@@ -146,13 +144,13 @@
           moreButton.textContent = "Wait There's More !!!";
           document.querySelector('.popup-buttons').appendChild(moreButton);
           moreButton.onclick = () => {
-            // Stop the music
+            // Stop the music instantly
             if (audio) {
               audio.pause();
               audio.currentTime = 0;
             }
-            document.body.innerHTML = '';  // Clear all content
-            document.body.style.backgroundColor = 'black';  // Change background
+            document.body.innerHTML = '';  // Clear all content instantly
+            document.body.style.backgroundColor = 'black';  // Change background instantly
             const video = document.createElement('video');
             video.src = 'myvideo.mp4'; // replace with your video file path
             video.className = 'fullscreen-video';
